@@ -1,0 +1,21 @@
+.product-list{
+    max-width: 1440px;
+    padding: 20px;
+    margin: 100px auto;
+    display: flex;
+    flex-direction: column;
+    h1{
+        color: #1A0B5B;
+        font-size: 40px;
+        font-style: normal;
+        font-weight: 900;
+        line-height: normal;
+        text-align: center;
+    }
+    .product{
+        display: flex;
+        justify-content: space-evenly;
+        flex-wrap: wrap;
+
+    }
+}
