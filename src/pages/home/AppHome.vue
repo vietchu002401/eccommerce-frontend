@@ -1,8 +1,8 @@
 <template>
     <div class="home">
         <div class="banner"></div>
-        <ProductList :isCategory=true />
-        <ProductList :isCategory=false />
+        <ProductList :isBestSales=true />
+        <ProductList :isBestSales=false />
     </div>
 </template>
   

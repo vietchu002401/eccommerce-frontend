@@ -1,7 +1,8 @@
 <template>
-    <div class="product-card">
+    <router-link :to="'/detail/' + product.id">
+        <div class="product-card">
             <div class="img">
-                <img :src="image" alt="" />
+                <img :src="imageUrl" alt="" />
 
             </div>
             <div class="product-info">
@@ -10,11 +11,13 @@
                     <rect x="19" y="0.757812" width="14" height="4.10557" rx="2.05279" fill="#F701A8" />
                     <rect x="38" y="0.757812" width="14" height="4.10557" rx="2.05279" fill="#00009D" />
                 </svg>
-                <strong>{{name}}</strong>
-                <p>Description: {{description}}</p>
+                <div>
+                    <strong>{{ product.name }}</strong>
+                    <p>Price: {{ product.price }} VND</p>
+                </div>
             </div>
-
         </div>
+    </router-link>
 </template>
   
 
@@ -25,10 +28,15 @@
 <script>
 export default {
     name: 'ProductCard',
-    props : {
-        name : String, 
-        image : String, 
-        description: String
+    props: {
+        product : Object
+    },
+    setup(props) {
+        const serverUrl = process.env.VUE_APP_SERVER_URL
+        let imageUrl = serverUrl + props.product.productImages[0].sourceImage
+        return {
+            imageUrl
+        }
     }
 }
 </script>

@@ -1,11 +1,17 @@
 .header{
     width: calc(100% - 20px);
+    // width: 100%;
     height: auto;
     display: flex;
     justify-content: space-between;
     margin: 10px;
     background-color: white;
     border-radius: 20px;
+    position: sticky;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    top: 0;
+    left: 0;
+    z-index: 10000;
     .header__search{
         display: flex;
         align-items: center;
@@ -126,3 +132,7 @@
         }
       }
 }
+// html:not([data-scroll='100']) header {
+//     width: 100%;
+//     margin: 0;
+// }
