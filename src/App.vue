@@ -1,6 +1,7 @@
 <template>
   <AppHeader/>
   <router-view/>
+  <BackToTop/>
   <AppFooter/>
 </template>
 
@@ -8,18 +9,19 @@
 
 
 
-<script>
+<script setup>
 // import AppHome from "./pages/home/AppHome.vue"
 import AppHeader from "./components/header/AppHeader.vue"
 import AppFooter from "./components/footer/AppFooter.vue"
-export default {
-  name: 'App',
-  components: {
-    // AppHome,
-    AppHeader,
-    AppFooter
-  }
-}
+import BackToTop from "@/components/back-to-top/BackToTop.vue";
+// export default {
+//   name: 'App',
+//   components: {
+//     // AppHome,
+//     AppHeader,
+//     AppFooter
+//   }
+// }
 </script>
 
 
@@ -45,8 +47,15 @@ h1, p, a, h2, h3, h4, h5, strong, li, ul, div {
      -moz-user-select: none; /* Old versions of Firefox */
       -ms-user-select: none; /* Internet Explorer/Edge */
           user-select: none;
+  font-family: Avenir, Helvetica, Arial, sans-serif !important;
 }
 a{
   text-decoration: none;
+}
+.carousel__next{
+  right: -20px !important;
+}
+.carousel__prev{
+  left: -20px !important;
 }
 </style>

@@ -2,18 +2,16 @@
   <div class="detail-page">
     <div class="info">
       <div class="image">
-        <img src="https://static.zerochan.net/Saimori.Miyo.full.3913397.jpg" alt=""/>
+        <div class="img" :style="mainImage ? `background-image: url('` + mainImage + `');` : null"></div>
         <div class="slider">
-          <carousel :items-to-show="4">
-            <slide v-for="slide in 10" :key="slide">
-              {{ slide }}
-            </slide>
-
+          <Carousel :items-to-show="4" snapAlign="start">
+            <Slide v-for="image in product?.productImages" :key="image.id">
+              <div @click="changeImage(image.sourceImage)" :style="`background-image: url('http://localhost:8082` + image.sourceImage + `');`"></div>
+            </Slide>
             <template #addons>
-              <navigation />
-<!--              <pagination />-->
+              <Navigation/>
             </template>
-          </carousel>
+          </Carousel>
         </div>
       </div>
       <div class="product-info">
@@ -47,8 +45,8 @@
         </div>
         <div class="name">
           <div class="name1">
-            <strong>Name Product</strong>
-            <p>Wibu store</p>
+            <strong>{{ product?.name }}</strong>
+            <p>{{ product?.category.name }}</p>
           </div>
           <div class="love">
             <div class="tim">
@@ -78,10 +76,10 @@
         <div class="price">
           <div class="price1">
             <strong>
-              $179.99
+              {{ new Intl.NumberFormat('de-DE').format(product?.price) }} VND
             </strong>
             <p>
-              $279.99
+              {{ product?.amount }} items available.
             </p>
           </div>
           <div class="review">
@@ -162,9 +160,7 @@
       <div class="main">
         <div class="main1">
           <strong>Product Description</strong>
-          <p>Praised by many for its enduring look and feel, the wardrobe staple hits refresh with the Nike Blazer Mid
-            '77 Jumbo.Harnessing the old-school look you love, it now has an elastic heel with corduroy-like texture and
-            large pull tabs for easy on and off.The oversized Swoosh design and jumbo laces add a fun twist</p>
+          <p>{{ product?.description }}</p>
         </div>
       </div>
     </div>
@@ -172,18 +168,40 @@
 </template>
 
 
-<script>
+<script setup>
 import 'vue3-carousel/dist/carousel.css'
-import { Carousel, Slide, Navigation } from 'vue3-carousel'
-export default {
-  name: 'ProductDetail',
-  components: {
-    Carousel,
-    Slide,
-    // Pagination,
-    Navigation,
-  },
+import {Carousel, Navigation, Slide} from 'vue3-carousel'
+import {useRoute} from 'vue-router'
+import {onMounted, ref} from "vue";
+
+const route = useRoute();
+const id = route.params.id
+const product = ref(null)
+let mainImage = ref(null)
+let fetchData = ()=>{
+  try {
+    fetch(`${process.env.VUE_APP_SERVER_URL}/product/detail/${id}`)
+        .then(response =>response.json())
+        .then(data => {
+          product.value = data.data
+          mainImage.value = process.env.VUE_APP_SERVER_URL + data.data.productImages[0].sourceImage
+        })
+  } catch (e) {
+    console.log(e)
+  }
 }
+let changeImage = (image)=>{
+  mainImage.value = process.env.VUE_APP_SERVER_URL + image
+}
+fetchData()
+
+onMounted(()=>{
+    window.scroll({
+      top : 0,
+      behavior : "smooth"
+    })
+})
+
 </script>
 
 <style lang="scss" scoped>

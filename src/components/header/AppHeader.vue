@@ -1,7 +1,7 @@
 <template>
     <div class="header">
         <div class="header__search">
-            <img src="../../assets/logo/logo.jpg" alt="logo" />
+            <router-link to="/"><img src="../../assets/logo/logo.jpg" alt="logo" /></router-link>
             <div class="search-box">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search icon"
                     viewBox="0 0 16 16">
@@ -64,5 +64,5 @@ export default {
 
   <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
-@import "./app-header.scss"
+@import "./app-header.scss";
 </style>
